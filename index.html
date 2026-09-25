@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fbf3e6">
+<title>Happy Birthday, Sweety!</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+:root{
+  --paper:#fbf3e6;
+  --ink:#263238;
+  --muted:#766c61;
+  --red:#e4473a;
+  --red-dark:#b92d25;
+  --yellow:#f4c548;
+  --yellow-dark:#d89e27;
+  --blue:#6ca7c8;
+  --green:#7eaa91;
+  --peach:#f2a08e;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}
+body{
+  font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow-x:hidden;
+}
+.screen{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 20px;
+  position:relative;
+}
+.card{
+  width:min(500px,100%);
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.confetti i{
+  position:absolute;
+  width:7px;height:13px;border-radius:6px;
+  opacity:.7;
+}
+.confetti i:nth-child(1){left:7%;top:14%;background:#e8ad45;transform:rotate(25deg)}
+.confetti i:nth-child(2){right:8%;top:18%;background:#77a9a1;transform:rotate(-35deg)}
+.confetti i:nth-child(3){left:13%;bottom:20%;background:#e64b3c;transform:rotate(55deg)}
+.confetti i:nth-child(4){right:13%;bottom:15%;background:#e8ad45;transform:rotate(-20deg)}
+.confetti i:nth-child(5){left:47%;top:7%;background:#77a9a1;transform:rotate(70deg)}
+.confetti i:nth-child(6){right:25%;top:35%;background:#e99b84;transform:rotate(20deg)}
+.confetti i:nth-child(7){left:22%;top:38%;background:#77a9a1;transform:rotate(-40deg)}
+
+.cake{
+  font-size:62px;
+  margin-bottom:2px;
+  filter:drop-shadow(0 7px 8px #0001);
+}
+h1{
+  font-family:Caveat,cursive;
+  font-size:58px;
+  line-height:.88;
+  margin:0 0 30px;
+  font-weight:600;
+  letter-spacing:.2px;
+}
+.message{
+  text-align:left;
+  font-size:15.8px;
+  line-height:1.62;
+  max-width:450px;
+  margin:0 auto;
+}
+.message p{margin:0 0 15px}
+.message em{font-family:Caveat,cursive;font-size:23px}
+.btn-wrap{margin-top:25px}
+.btn{
+  border:0;
+  cursor:pointer;
+  color:#fff;
+  font:600 15px "DM Sans",sans-serif;
+  letter-spacing:.02em;
+  padding:17px 27px 18px;
+  min-width:260px;
+  background:linear-gradient(#ef5a4e,#d83e32);
+  border-radius:7px;
+  box-shadow:
+    inset 0 4px 0 #ffffff27,
+    inset 0 -5px 0 #b72c25,
+    0 8px 0 #a92c24,
+    0 14px 24px #0002;
+  position:relative;
+  transition:.12s ease;
+}
+.btn:before{
+  content:"";
+  position:absolute;
+  top:-6px;
+  left:24px;
+  width:10px;height:10px;
+  border-radius:50%;
+  background:#ef6a60;
+  box-shadow:
+    25px 0 #ef6a60,
+    50px 0 #ef6a60,
+    75px 0 #ef6a60,
+    100px 0 #ef6a60,
+    125px 0 #ef6a60,
+    150px 0 #ef6a60,
+    175px 0 #ef6a60;
+}
+.btn:active{
+  transform:translateY(6px);
+  box-shadow:inset 0 4px 0 #ffffff27,inset 0 -3px 0 #b72c25,0 2px 0 #a92c24,0 7px 14px #0002;
+}
+.note{
+  font-family:Caveat,cursive;
+  color:#5e554d;
+  font-size:19px;
+  line-height:1.08;
+  margin:25px auto 0;
+  max-width:300px;
+  transform:rotate(-1deg);
+}
+.note .arrow{font-size:27px}
+.footer{
+  margin-top:23px;
+  color:#94887c;
+  font-size:12px;
+}
+.lego-mini{
+  display:inline-block;
+  width:34px;height:21px;
+  border-radius:4px;
+  margin:0 4px;
+  vertical-align:-4px;
+  position:relative;
+  box-shadow:inset 0 -3px #0002;
+}
+.lego-mini:after{
+  content:"";
+  position:absolute;
+  width:7px;height:7px;
+  border-radius:50%;
+  left:6px;top:-5px;
+  background:inherit;
+  box-shadow:10px 0 inherit,20px 0 inherit;
+}
+.red{background:#df493d}.blue{background:#5e94bc}.green{background:#79a58b}
+
+/* ---------- gift screen ---------- */
+.shake-title{
+  font-family:Caveat,cursive;
+  font-size:53px;
+  line-height:1;
+  margin:8px 0 14px;
+  font-weight:600;
+}
+.instruction{
+  font-family:Caveat,cursive;
+  font-size:22px;
+  color:#625950;
+  margin:4px 0 5px;
+}
+.motion-symbol{
+  font-size:30px;
+  letter-spacing:8px;
+  margin:3px 0 10px;
+  animation:wave 1s infinite ease-in-out;
+}
+@keyframes wave{
+  0%,100%{transform:rotate(0)}
+  50%{transform:rotate(-7deg)}
+}
+
+/* 3D toy-brick gift box */
+.gift{
+  width:230px;
+  height:215px;
+  margin:0 auto 4px;
+  position:relative;
+  filter:drop-shadow(0 20px 17px #0002);
+  transform-origin:50% 80%;
+}
+.gift .body{
+  position:absolute;
+  left:28px;right:28px;bottom:18px;
+  height:115px;
+  border-radius:7px 7px 18px 18px;
+  background:linear-gradient(135deg,#ffd96c 0%,#f3c04b 48%,#d89f2c 100%);
+  box-shadow:
+    inset -12px -10px 0 #c99028,
+    inset 8px 8px 0 #ffe38b;
+}
+.gift .lid{
+  position:absolute;
+  left:16px;right:16px;top:63px;
+  height:45px;
+  border-radius:7px;
+  background:linear-gradient(135deg,#ffe17a,#eeb83f);
+  box-shadow:inset -10px -7px 0 #ca942a,inset 8px 7px 0 #ffe999;
+  z-index:4;
+}
+.gift .ribbon-v{
+  position:absolute;
+  z-index:5;
+  left:101px;bottom:18px;
+  width:31px;height:146px;
+  background:linear-gradient(90deg,#c8332c,#e84b3d,#b82b25);
+  box-shadow:inset 5px 0 #f15d50,inset -5px 0 #a92320;
+  border-radius:2px;
+}
+.gift .ribbon-h{
+  position:absolute;
+  z-index:6;
+  left:16px;right:16px;top:77px;
+  height:22px;
+  background:linear-gradient(#ec5748,#c82f29);
+  box-shadow:inset 0 4px #f36a5d,inset 0 -4px #ad2822;
+}
+.gift .bow{
+  position:absolute;
+  z-index:8;
+  left:75px;top:21px;
+  width:80px;height:54px;
+}
+.gift .bow:before,.gift .bow:after{
+  content:"";
+  position:absolute;
+  top:12px;
+  width:53px;height:34px;
+  background:linear-gradient(135deg,#f05c4f,#c62f28);
+  box-shadow:inset 5px 4px #ff7668,inset -6px -5px #a92521;
+}
+.gift .bow:before{
+  left:0;
+  border-radius:30px 6px 28px 8px;
+  transform:rotate(22deg);
+}
+.gift .bow:after{
+  right:0;
+  border-radius:30px 6px 28px 8px;
+  transform:scaleX(-1) rotate(22deg);
+}
+.gift .knot{
+  position:absolute;
+  z-index:9;
+  left:29px;top:19px;
+  width:25px;height:25px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ed594b,#b82a25);
+  box-shadow:inset 4px 3px #ff7468;
+}
+
+/* LEGO studs on lid */
+.studs{
+  position:absolute;
+  z-index:10;
+  left:30px;right:30px;top:51px;
+  display:flex;
+  justify-content:space-between;
+  padding:0 8px;
+}
+.stud{
+  width:18px;height:18px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ffe99a,#d99d2a);
+  box-shadow:
+    inset 3px 3px #fff3,
+    inset -3px -3px #b97d1f,
+    0 2px 1px #0002;
+}
+
+/* little floating LEGO clues */
+.floating-brick{
+  position:absolute;
+  width:32px;height:20px;
+  border-radius:4px;
+  opacity:.95;
+  box-shadow:inset 0 -3px #0002;
+}
+.floating-brick:after{
+  content:"";
+  position:absolute;
+  width:7px;height:7px;border-radius:50%;
+  left:5px;top:-5px;
+  background:inherit;
+  box-shadow:10px 0 inherit,20px 0 inherit;
+}
+.floating-brick.one{left:13%;top:30%;background:#dd493d;transform:rotate(-12deg)}
+.floating-brick.two{right:11%;bottom:25%;background:#5c94bd;transform:rotate(13deg)}
+.floating-brick.three{left:17%;bottom:15%;background:#7ca58c;transform:rotate(8deg)}
+
+.progress{
+  height:13px;
+  background:#eadfd1;
+  border-radius:99px;
+  overflow:hidden;
+  max-width:320px;
+  margin:18px auto 8px;
+  box-shadow:inset 0 1px 3px #0001;
+}
+.bar{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#e8ad45,#e64b3c);
+  border-radius:99px;
+  transition:width .12s;
+}
+.percent{font-size:14px;color:#756b61}
+.hidden{display:none!important}
+
+@keyframes shake{
+  0%,100%{transform:rotate(0) translateX(0)}
+  25%{transform:rotate(-5deg) translateX(-3px)}
+  75%{transform:rotate(5deg) translateX(3px)}
+}
+.shaking .gift{animation:shake .16s infinite}
+@keyframes pop{
+  0%{transform:scale(.75);opacity:0}
+  70%{transform:scale(1.06)}
+  100%{transform:scale(1);opacity:1}
+}
+.pop{animation:pop .65s ease both}
+
+.opening-title{
+  font-family:Caveat,cursive;
+  font-size:40px;
+  margin-top:10px;
+}
+
+/* opening gift: lid flies up */
+.opening-gift .lid{
+  animation:lidOpen .8s ease forwards;
+}
+@keyframes lidOpen{
+  0%{transform:translate(0,0) rotate(0)}
+  100%{transform:translate(22px,-75px) rotate(10deg)}
+}
+.sparkles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.sparkles span{
+  position:absolute;
+  font-size:24px;
+  animation:spark .9s ease-out forwards;
+}
+.sparkles span:nth-child(1){left:8%;top:20%}
+.sparkles span:nth-child(2){right:8%;top:28%}
+.sparkles span:nth-child(3){left:20%;bottom:23%}
+.sparkles span:nth-child(4){right:20%;bottom:17%}
+@keyframes spark{
+  from{opacity:0;transform:scale(.5) translateY(15px)}
+  30%{opacity:1}
+  to{opacity:0;transform:scale(1.3) translateY(-35px)}
+}
+
+.small{
+  color:#756b61;
+  font-size:13px;
+  line-height:1.5;
+  margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<div class="confetti">
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+</div>
+
+<section id="welcome" class="screen">
+  <span class="floating-brick one"></span>
+  <span class="floating-brick two"></span>
+  <span class="floating-brick three"></span>
+
+  <div class="card">
+    <div class="cake">🎂</div>
+    <h1>Happy Birthday,<br>Sweety!</h1>
+
+    <div class="message">
+      <p>Eccoci qui. Immaginavo che avresti aperto il link.</p>
+      <p>Visto che il tuo compleanno è solo una volta all'anno, sarò extra buono con te oggi.</p>
+      <p>Ho preparato un piccolo regalo.</p>
+      <p>Sai, alle volte non ti cago o faccio finta di non sentirti. Nel prossimo minuto capirai perché... 🤞</p>
+      <p><em>It was all part of the plan. 😉</em></p>
+    </div>
+
+    <div class="btn-wrap">
+      <button class="btn" id="openBtn">OPEN THE GIFT&nbsp; →</button>
+    </div>
+
+    <div class="note">
+      <span class="arrow">↗</span><br>
+      I guess you know what to do.<br>
+      The gift ain't gonna open itself.<br>
+      Come on, click it. Open the gift.
+    </div>
+
+    <div class="footer">
+      <span class="lego-mini red"></span>
+      <span class="lego-mini blue"></span>
+      <span class="lego-mini green"></span>
+    </div>
+  </div>
+</section>
+
+<section id="shake" class="screen hidden">
+  <span class="floating-brick one"></span>
+  <span class="floating-brick two"></span>
+
+  <div class="card">
+    <div class="gift" id="gift">
+      <div class="body"></div>
+      <div class="ribbon-v"></div>
+      <div class="lid"></div>
+      <div class="ribbon-h"></div>
+      <div class="studs">
+        <span class="stud"></span><span class="stud"></span>
+        <span class="stud"></span><span class="stud"></span>
+      </div>
+      <div class="bow"></div>
+      <div class="knot"></div>
+    </div>
+
+    <div class="shake-title">Shake to open</div>
+    <div class="motion-symbol">⌁ 📱 ⌁</div>
+    <div class="instruction" id="instruction">Give it a little shake...</div>
+
+    <button class="btn" id="motionBtn">ENABLE MOTION</button>
+
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="percent" id="percent">0%</div>
+
+    <div class="small">
+      Don't worry, you won't have to shake it forever. 😌
+    </div>
+  </div>
+</section>
+
+<section id="opening" class="screen hidden">
+  <div class="card">
+    <div class="sparkles">
+      <span>✦</span><span>✧</span><span>✦</span><span>✧</span>
+    </div>
+
+    <div class="gift opening-gift pop">
+      <div class="body"></div>
+      <div class="ribbon-v"></div>
+      <div class="lid"></div>
+      <div class="ribbon-h"></div>
+      <div class="studs">
+        <span class="stud"></span><span class="stud"></span>
+        <span class="stud"></span><span class="stud"></span>
+      </div>
+      <div class="bow"></div>
+      <div class="knot"></div>
+    </div>
+
+    <div class="opening-title">Opening...</div>
+  </div>
+</section>
+
+<script>
+const welcome = document.getElementById("welcome");
+const shake = document.getElementById("shake");
+const opening = document.getElementById("opening");
+const openBtn = document.getElementById("openBtn");
+const motionBtn = document.getElementById("motionBtn");
+const bar = document.getElementById("bar");
+const percent = document.getElementById("percent");
+const instruction = document.getElementById("instruction");
+const gift = document.getElementById("gift");
+
+let progress = 0;
+let lastMotion = 0;
+let started = false;
+let done = false;
+
+openBtn.addEventListener("click", () => {
+  welcome.classList.add("hidden");
+  shake.classList.remove("hidden");
+});
+
+async function enableMotion(){
+  try{
+    if(typeof DeviceMotionEvent !== "undefined" &&
+       typeof DeviceMotionEvent.requestPermission === "function"){
+      const permission = await DeviceMotionEvent.requestPermission();
+      if(permission !== "granted"){
+        instruction.textContent =
+          "Motion access was not enabled. Tap ENABLE MOTION and allow it to continue.";
+        return;
+      }
+    }
+
+    started = true;
+    motionBtn.classList.add("hidden");
+    instruction.textContent = "Now shake the phone!";
+    window.addEventListener("devicemotion", onMotion, {passive:true});
+
+  }catch(error){
+    instruction.textContent =
+      "Could not access motion sensors. Try enabling motion again.";
+  }
+}
+
+motionBtn.addEventListener("click", enableMotion);
+
+function onMotion(event){
+  if(done || !started) return;
+
+  const a = event.accelerationIncludingGravity || event.acceleration;
+  if(!a) return;
+
+  const now = performance.now();
+  if(now - lastMotion < 55) return;
+
+  const x = a.x || 0;
+  const y = a.y || 0;
+  const z = a.z || 0;
+  const magnitude = Math.sqrt(x*x + y*y + z*z);
+
+  const movement = Math.abs(magnitude - 9.81);
+
+  if(movement > 2.2){
+    lastMotion = now;
+    progress = Math.min(100, progress + Math.min(7, movement * 1.2));
+    updateProgress();
+  }
+}
+
+function updateProgress(){
+  bar.style.width = progress + "%";
+  percent.textContent = Math.round(progress) + "%";
+
+  if(progress > 2 && progress < 100){
+    shake.classList.add("shaking");
+  }else{
+    shake.classList.remove("shaking");
+  }
+
+  if(progress >= 100) finish();
+}
+
+function finish(){
+  if(done) return;
+  done = true;
+
+  window.removeEventListener("devicemotion", onMotion);
+  shake.classList.remove("shaking");
+  shake.classList.add("hidden");
+  opening.classList.remove("hidden");
+
+  setTimeout(() => {
+    window.location.href = "gift.pdf";
+  }, 1550);
+}
+
+/* Desktop/testing fallback: clicking the gift adds progress. */
+gift.addEventListener("click", () => {
+  if(!started || done) return;
+  progress = Math.min(100, progress + 12);
+  updateProgress();
+});
+</script>
+</body>
+</html>
