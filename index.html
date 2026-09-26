@@ -367,6 +367,43 @@ h1{
   line-height:1.5;
   margin-top:20px;
 }
+
+/* Original brick-style SVG button */
+.lego-button{
+  display:block;
+  width:min(300px,88vw);
+  height:auto;
+  margin:0 auto;
+  cursor:pointer;
+  border:0;
+  padding:0;
+  background:transparent;
+  filter:drop-shadow(0 8px 0 #9f2923) drop-shadow(0 13px 18px #0002);
+  transition:transform .12s ease, filter .12s ease;
+}
+.lego-button img{display:block;width:100%;height:auto}
+.lego-button:active{
+  transform:translateY(6px);
+  filter:drop-shadow(0 2px 0 #9f2923) drop-shadow(0 7px 12px #0002);
+}
+/* Final reveal */
+.reveal-card{width:min(560px,100%);text-align:center;position:relative;z-index:2}
+.reveal-title{font-family:Caveat,cursive;font-size:48px;line-height:1;margin:0 0 16px;font-weight:600}
+.reveal-subtitle{font-family:Caveat,cursive;font-size:24px;color:#625950;margin:0 0 22px}
+.reveal-image-wrap{
+  background:#fffaf2;
+  border-radius:16px;
+  padding:10px;
+  box-shadow:0 18px 40px #0002, 0 2px 0 #fff;
+  animation:giftReveal 1s cubic-bezier(.2,.8,.2,1) both;
+}
+.reveal-image{display:block;width:100%;height:auto;border-radius:10px}
+.reveal-footer{font-family:Caveat,cursive;font-size:25px;color:#5e554d;margin-top:18px}
+@keyframes giftReveal{
+  from{opacity:0;transform:translateY(22px) scale(.94)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
 </style>
 </head>
 <body>
@@ -393,7 +430,9 @@ h1{
     </div>
 
     <div class="btn-wrap">
-      <button class="btn" id="openBtn">OPEN THE GIFT&nbsp; →</button>
+      <button class="lego-button" id="openBtn" aria-label="Open the gift">
+        <img src="open-the-gift.svg" alt="OPEN THE GIFT">
+      </button>
     </div>
 
     <div class="note">
@@ -445,25 +484,16 @@ h1{
 </section>
 
 <section id="opening" class="screen hidden">
-  <div class="card">
-    <div class="sparkles">
-      <span>✦</span><span>✧</span><span>✦</span><span>✧</span>
+  <div class="sparkles">
+    <span>✦</span><span>✧</span><span>✦</span><span>✧</span>
+  </div>
+  <div class="reveal-card">
+    <div class="reveal-title">And... here it is.</div>
+    <div class="reveal-subtitle">❤️</div>
+    <div class="reveal-image-wrap">
+      <img class="reveal-image" src="gift.png" alt="Your birthday gift">
     </div>
-
-    <div class="gift opening-gift pop">
-      <div class="body"></div>
-      <div class="ribbon-v"></div>
-      <div class="lid"></div>
-      <div class="ribbon-h"></div>
-      <div class="studs">
-        <span class="stud"></span><span class="stud"></span>
-        <span class="stud"></span><span class="stud"></span>
-      </div>
-      <div class="bow"></div>
-      <div class="knot"></div>
-    </div>
-
-    <div class="opening-title">Opening...</div>
+    <div class="reveal-footer">Happy birthday, Sweety! ❤️</div>
   </div>
 </section>
 
@@ -559,7 +589,7 @@ function finish(){
   opening.classList.remove("hidden");
 
   setTimeout(() => {
-    window.location.href = "gift.pdf";
+    // The real gift is displayed directly in this page as gift.png.
   }, 1550);
 }
 
